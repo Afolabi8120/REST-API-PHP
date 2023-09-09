@@ -44,6 +44,25 @@
 			return $stmt->fetch(PDO::FETCH_OBJ);
 		}
 
+		public function update_student($id,$name,$email,$mobile){
+			$stmt = $this->pdo->prepare("UPDATE tblstudent SET name=:name,email=:email,mobile=:mobile WHERE id = :id");
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
+			$stmt->bindParam(":mobile", $mobile, PDO::PARAM_STR);
+			$stmt->execute();
+
+			return true;
+		}
+
+		public function delete($id){
+			$stmt = $this->pdo->prepare("DELETE FROM tblstudent WHERE id = :id");
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return true;
+		}
+
 	}
 
 ?>
