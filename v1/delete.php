@@ -7,13 +7,12 @@
 	// database connection
 	require('../config/database.php');
 
-	//if($_SERVER['REQUEST_METHOD'] === "POST"){
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
 
 		$data = json_decode(file_get_contents("php://input"));
 		
 		// submitted data
-		$id = 5;
-		// $id = $student->validateInput($data->id);
+		$id = $student->validateInput($data->id);
 
 		// if variables are empty
 		if(empty($id)){
@@ -32,7 +31,7 @@
 					"message" => "Student Data Deleted Successfully"
 				));
 					
-			}else { // display an error message if not true
+			}else{ // display an error message if not true
 				http_response_code(500); // 500 means internal server error
 				echo json_encode(array(
 					"status" => 0,
@@ -42,12 +41,12 @@
 
 		}
 
-	// }else{
-	// 	http_response_code(503); // 503 means service unavailable
-	// 	echo json_encode(array(
-	// 		"status" => 0,
-	// 		"message" => "Access Denied"
-	// 	));
-	// }
+	}else{
+		http_response_code(503); // 503 means service unavailable
+		echo json_encode(array(
+			"status" => 0,
+			"message" => "Access Denied"
+		));
+	}
 
 ?>
